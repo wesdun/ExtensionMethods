@@ -8,23 +8,23 @@ namespace ExtensionMethods
 {
     public static class MyExtensions
     {
-        private static Tuple<string, string>[] numerals =
+        private static Dictionary<string, string> numeralSubtractives = new Dictionary<string, string>()
         {
-            Tuple.Create("M" + char.ConvertFromUtf32(0x305), "C" + char.ConvertFromUtf32(0x305)),
-            Tuple.Create("D" + char.ConvertFromUtf32(0x305), "C" + char.ConvertFromUtf32(0x305)),
-            Tuple.Create("C" + char.ConvertFromUtf32(0x305), "X" + char.ConvertFromUtf32(0x305)),
-            Tuple.Create("L" + char.ConvertFromUtf32(0x305), "X" + char.ConvertFromUtf32(0x305)),
-            Tuple.Create("X" + char.ConvertFromUtf32(0x305), "I" + char.ConvertFromUtf32(0x305)),
-            Tuple.Create("V" + char.ConvertFromUtf32(0x305), "I" + char.ConvertFromUtf32(0x305)),
-            Tuple.Create("M", "C"),
-            Tuple.Create("D", "C"),
-            Tuple.Create("C", "X"),
-            Tuple.Create("L", "X"),
-            Tuple.Create("X", "I"),
-            Tuple.Create("V", "I"),
-            Tuple.Create("I", "")
+            { "M" + char.ConvertFromUtf32(0x305), "C" + char.ConvertFromUtf32(0x305) },
+            { "D" + char.ConvertFromUtf32(0x305), "C" + char.ConvertFromUtf32(0x305) },
+            { "C" + char.ConvertFromUtf32(0x305), "X" + char.ConvertFromUtf32(0x305) },
+            { "L" + char.ConvertFromUtf32(0x305), "X" + char.ConvertFromUtf32(0x305) },
+            { "X" + char.ConvertFromUtf32(0x305), "I" + char.ConvertFromUtf32(0x305) },
+            { "V" + char.ConvertFromUtf32(0x305), "I" + char.ConvertFromUtf32(0x305) },
+            { "M", "C" },
+            { "D", "C" },
+            { "C", "X" },
+            { "L", "X" },
+            { "X", "I" },
+            { "V", "I" },
+            { "I", "" }
         };
-      
+
         private static Dictionary<string, int> numeralValues = new Dictionary<string, int>()
         {
             {"", 0 },
@@ -49,16 +49,17 @@ namespace ExtensionMethods
         {
             String result = "";
 
-            foreach (var numeral in numerals) {
-                while (num >= numeralValues[numeral.Item1])
+            foreach (var numeral in numeralSubtractives)
+            {
+                while (num >= numeralValues[numeral.Key])
                 {
-                    num -= numeralValues[numeral.Item1];
-                    result += numeral.Item1;
+                    num -= numeralValues[numeral.Key];
+                    result += numeral.Key;
                 }
-                if (num >= (numeralValues[numeral.Item1] - numeralValues[numeral.Item2]))
+                if (num >= (numeralValues[numeral.Key] - numeralValues[numeral.Value]))
                 {
-                    result += numeral.Item2 + numeral.Item1;
-                    num -= numeralValues[numeral.Item1] - numeralValues[numeral.Item2];
+                    result += numeral.Value + numeral.Key;
+                    num -= numeralValues[numeral.Key] - numeralValues[numeral.Value];
                 }
             }
 
