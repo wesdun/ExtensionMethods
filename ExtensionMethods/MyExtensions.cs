@@ -49,19 +49,26 @@ namespace ExtensionMethods
         {
             String result = "";
 
-            foreach (var numeral in numeralSubtractives)
+            if (num == 0)
             {
-                while (num >= numeralValues[numeral.Key])
+                result = "nulla";
+            } else
+            {
+                foreach (var numeral in numeralSubtractives)
                 {
-                    num -= numeralValues[numeral.Key];
-                    result += numeral.Key;
-                }
-                if (num >= (numeralValues[numeral.Key] - numeralValues[numeral.Value]))
-                {
-                    result += numeral.Value + numeral.Key;
-                    num -= numeralValues[numeral.Key] - numeralValues[numeral.Value];
+                    while (num >= numeralValues[numeral.Key])
+                    {
+                        num -= numeralValues[numeral.Key];
+                        result += numeral.Key;
+                    }
+                    if (num >= (numeralValues[numeral.Key] - numeralValues[numeral.Value]))
+                    {
+                        result += numeral.Value + numeral.Key;
+                        num -= numeralValues[numeral.Key] - numeralValues[numeral.Value];
+                    }
                 }
             }
+
 
             return result;
         }

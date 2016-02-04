@@ -153,5 +153,11 @@ namespace ExtensionMethods
                 "X" + char.ConvertFromUtf32(0x305) +
                 "CMXCVII", 999997.ToRomanNumeral());
         }
+
+        [Test]
+        public void ToRomanNumeral_0_ReturnsNulla()
+        {
+            Assert.AreEqual("nulla", 0.ToRomanNumeral());
+        }
     }
 }
