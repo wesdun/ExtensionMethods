@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExtensionMethods
 {
-    public static class MyExtensions
+    public static class IntRomanNumeralExtension
     {
         private static Dictionary<string, string> numeralSubtractives = new Dictionary<string, string>()
         {
