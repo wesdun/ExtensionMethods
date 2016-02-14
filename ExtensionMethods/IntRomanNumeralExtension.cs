@@ -8,42 +8,22 @@ namespace ExtensionMethods
 {
     public static class IntRomanNumeralExtension
     {
-        private static Dictionary<string, string> numeralSubtractives = new Dictionary<string, string>()
-        {
-            { "M" + char.ConvertFromUtf32(0x305), "C" + char.ConvertFromUtf32(0x305) },
-            { "D" + char.ConvertFromUtf32(0x305), "C" + char.ConvertFromUtf32(0x305) },
-            { "C" + char.ConvertFromUtf32(0x305), "X" + char.ConvertFromUtf32(0x305) },
-            { "L" + char.ConvertFromUtf32(0x305), "X" + char.ConvertFromUtf32(0x305) },
-            { "X" + char.ConvertFromUtf32(0x305), "I" + char.ConvertFromUtf32(0x305) },
-            { "V" + char.ConvertFromUtf32(0x305), "I" + char.ConvertFromUtf32(0x305) },
-            { "M", "C" },
-            { "D", "C" },
-            { "C", "X" },
-            { "L", "X" },
-            { "X", "I" },
-            { "V", "I" },
-            { "I", "" }
-        };
-
-        private static Dictionary<string, int> numeralValues = new Dictionary<string, int>()
-        {
-            {"", 0 },
-            {"I",1 },
-            {"V", 5 },
-            {"X", 10 },
-            {"L", 50 },
-            {"C", 100 },
-            {"D", 500 },
-            {"M", 1000 },
-            {"I" + char.ConvertFromUtf32(0x305), 1000},
-            {"V" + char.ConvertFromUtf32(0x305), 5000},
-            {"X" + char.ConvertFromUtf32(0x305), 10000},
-            {"L" + char.ConvertFromUtf32(0x305), 50000},
-            {"C" + char.ConvertFromUtf32(0x305), 100000},
-            {"D" + char.ConvertFromUtf32(0x305), 500000},
-            {"M" + char.ConvertFromUtf32(0x305), 1000000}
-
-        };
+        private static RomanNumeral[] RomanNumerals = {
+            new RomanNumeral("M" + char.ConvertFromUtf32(0x305), 1000000, "C" + char.ConvertFromUtf32(0x305)),
+            new RomanNumeral("D" + char.ConvertFromUtf32(0x305), 500000, "C" + char.ConvertFromUtf32(0x305)),
+            new RomanNumeral("C" + char.ConvertFromUtf32(0x305), 100000, "X" + char.ConvertFromUtf32(0x305)),
+            new RomanNumeral("L" + char.ConvertFromUtf32(0x305), 50000, "X" + char.ConvertFromUtf32(0x305)),
+            new RomanNumeral("X" + char.ConvertFromUtf32(0x305), 10000, "I" + char.ConvertFromUtf32(0x305)),
+            new RomanNumeral("V" + char.ConvertFromUtf32(0x305), 5000, "I" + char.ConvertFromUtf32(0x305)),
+            new RomanNumeral("M", 1000, "C"),
+            new RomanNumeral("D", 500, "C"),
+            new RomanNumeral("C", 100, "X"),
+            new RomanNumeral("L", 50, "X"),
+            new RomanNumeral("X", 10, "I"),
+            new RomanNumeral("V", 5, "I"),
+            new RomanNumeral("I", 1, ""),
+            new RomanNumeral("I" + char.ConvertFromUtf32(0x305), 1000, "")
+            };
 
         public static string ToRomanNumeral(this int num)
         {
@@ -54,23 +34,49 @@ namespace ExtensionMethods
                 result = "nulla";
             } else
             {
-                foreach (var numeral in numeralSubtractives)
+                foreach (var numeral in RomanNumerals)
                 {
-                    while (num >= numeralValues[numeral.Key])
+                    while (num >= numeral.intValue) 
                     {
-                        num -= numeralValues[numeral.Key];
-                        result += numeral.Key;
+                        num -= numeral.intValue;
+                        result += numeral.character;
                     }
-                    if (num >= (numeralValues[numeral.Key] - numeralValues[numeral.Value]))
+                    if (num >= (numeral.intValue - GetSubtractiveIntValue(numeral.subtractive)))
                     {
-                        result += numeral.Value + numeral.Key;
-                        num -= numeralValues[numeral.Key] - numeralValues[numeral.Value];
+                        num -= numeral.intValue - GetSubtractiveIntValue(numeral.subtractive);
+                        result += numeral.subtractive + numeral.character;
                     }
                 }
             }
 
-
             return result;
+        }
+
+        private static int GetSubtractiveIntValue(string RomanNumeralCharacter)
+        {
+            for (int i = 0; i < RomanNumerals.Length; i++)
+            {
+                if(RomanNumeralCharacter == RomanNumerals[i].character)
+                {
+                    return RomanNumerals[i].intValue;
+                }
+            }
+
+            return 0;
+        }
+    }
+
+    public class RomanNumeral {
+
+        public string character;
+        public int intValue;
+        public string subtractive;
+
+        public RomanNumeral(string character, int intValue, string subtractive)
+        {
+            this.character = character;
+            this.intValue = intValue;
+            this.subtractive = subtractive;
         }
     }
 }
