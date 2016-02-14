@@ -9,125 +9,31 @@ namespace ExtensionMethods
 {
     [TestFixture]
     class RomanNumeralTests
-    {  
-        [Test]
-        public void ToRomanNumeral_1_ReturnsI()
+    {
+        [TestCase("I", 1)]
+        [TestCase("V", 5)]
+        [TestCase("IV", 4)]
+        [TestCase("X", 10)]
+        [TestCase("IX", 9)]
+        [TestCase("XXII", 22)]
+        [TestCase("XLIX", 49)]
+        [TestCase("LXIV", 64)]
+        [TestCase("LXXXIII", 83)]
+        [TestCase("XCVII", 97)]
+        [TestCase("XCIX", 99)]
+        [TestCase("D", 500)]
+        [TestCase("DI", 501)]
+        [TestCase("DCXLIX", 649)]
+        [TestCase("CMXCIV", 994)]
+        [TestCase("MIV", 1004)]
+        [TestCase("MVI", 1006)]
+        [TestCase("MXXIII", 1023)]
+        [TestCase("MMXIV", 2014)]
+        [TestCase("MMMCMXCIX", 3999)]
+        [TestCase("nulla", 0)]
+        public void ToRomanNumeralTest(string result, int num)
         {
-            Assert.AreEqual("I", 1.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_5_ReturnsV()
-        {
-            Assert.AreEqual("V", 5.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_4_ReturnsIV()
-        {
-            Assert.AreEqual("IV", 4.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_10_ReturnsX()
-        {
-            Assert.AreEqual("X", 10.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_9_ReturnsIX()
-        {
-            Assert.AreEqual("IX", 9.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_22_ReturnsXXII()
-        {
-            Assert.AreEqual("XXII", 22.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_49_ReturnsXLIX()
-        {
-            Assert.AreEqual("XLIX", 49.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_64_ReturnsLXIV()
-        {
-            Assert.AreEqual("LXIV", 64.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_83_ReturnsLXXXIII()
-        {
-            Assert.AreEqual("LXXXIII", 83.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_97_ReturnsXCVII()
-        {
-            Assert.AreEqual("XCVII", 97.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_99_ReturnsXCIX()
-        {
-            Assert.AreEqual("XCIX", 99.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_500_ReturnsD()
-        {
-            Assert.AreEqual("D", 500.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_501_ReturnsDI()
-        {
-            Assert.AreEqual("DI", 501.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_649_ReturnsDCXLIX()
-        {
-            Assert.AreEqual("DCXLIX", 649.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_994_ReturnsCMXCIV()
-        {
-            Assert.AreEqual("CMXCIV", 994.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_1004_ReturnsMIV()
-        {
-            Assert.AreEqual("MIV", 1004.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_1006_ReturnsMVI()
-        {
-            Assert.AreEqual("MVI", 1006.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_1023_ReturnsMXXIII()
-        {
-            Assert.AreEqual("MXXIII", 1023.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_2014_ReturnsMMXIV()
-        {
-            Assert.AreEqual("MMXIV", 2014.ToRomanNumeral());
-        }
-
-        [Test]
-        public void ToRomanNumeral_3999_ReturnsMMMCMXCIX()
-        {
-            Assert.AreEqual("MMMCMXCIX", 3999.ToRomanNumeral());
+            Assert.AreEqual(result, num.ToRomanNumeral());
         }
 
         [Test]
