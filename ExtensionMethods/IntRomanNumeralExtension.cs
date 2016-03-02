@@ -41,7 +41,7 @@ namespace ExtensionMethods
                         num -= numeral.intValue;
                         result += numeral.character;
                     }
-                    if (NeedsSubtractiveNotation(num, numeral.intValue, numeral.subtractive)) 
+                    if (NeedsSubtractiveNotation(num, numeral)) 
                     {
                         num -= numeral.intValue - GetSubtractiveIntValue(numeral.subtractive);
                         result += numeral.subtractive + numeral.character;
@@ -52,9 +52,9 @@ namespace ExtensionMethods
             return result;
         }
 
-        private static bool NeedsSubtractiveNotation(int num, int numeralIntValue, string numeralSubtractive)
+        private static bool NeedsSubtractiveNotation(int num, RomanNumeral numeral)
         {
-            return num >= (numeralIntValue - GetSubtractiveIntValue(numeralSubtractive));
+            return num >= (numeral.intValue - GetSubtractiveIntValue(numeral.subtractive));
         }
 
         private static int GetSubtractiveIntValue(string RomanNumeralCharacter)
